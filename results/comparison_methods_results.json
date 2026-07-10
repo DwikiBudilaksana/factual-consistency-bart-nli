@@ -1,0 +1,5 @@
+[
+  {"method": "Baseline (top-1 beam)", "rouge1": 0.3857, "rouge2": 0.2122, "rougeL": 0.3176, "entailment": 0.3100, "contradiction": 0.0138, "sim_score": 0.7707},
+  {"method": "NLI Reranking", "rouge1": 0.3833, "rouge2": 0.2084, "rougeL": 0.3156, "entailment": 0.4662, "contradiction": 0.0113, "sim_score": 0.7658},
+  {"method": "Semantic Similarity", "rouge1": 0.3916, "rouge2": 0.2135, "rougeL": 0.3189, "entailment": 0.3320, "contradiction": 0.0141, "sim_score": 0.8102}
+]

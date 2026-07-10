@@ -1,0 +1,35 @@
+{
+  "main_performance_comparison": {
+    "BART_baseline": {
+      "rouge1": 0.3819, "rouge2": 0.2090, "rougeL": 0.3145,
+      "avg_entailment": 0.3229, "avg_contradiction": 0.0133, "avg_neutral": 0.6638
+    },
+    "BART_plus_NLI_reranking": {
+      "rouge1": 0.3789, "rouge2": 0.2045, "rougeL": 0.3113,
+      "avg_entailment": 0.4940, "avg_contradiction": 0.0108, "avg_neutral": 0.4952
+    },
+    "config": {
+      "alpha": 0.7,
+      "num_candidates": 4,
+      "test_samples": 10971
+    }
+  },
+  "indonli_validation": {
+    "test_lay": {
+      "accuracy": 0.7828,
+      "per_class": {
+        "entailment": {"precision": 0.7231, "recall": 0.9245, "f1": 0.8115},
+        "neutral": {"precision": 0.8782, "recall": 0.5390, "f1": 0.6680},
+        "contradiction": {"precision": 0.8146, "recall": 0.8338, "f1": 0.8241}
+      }
+    },
+    "test_expert": {
+      "accuracy": 0.7590,
+      "per_class": {
+        "entailment": {"precision": 0.7019, "recall": 0.8348, "f1": 0.7626},
+        "neutral": {"precision": 0.7866, "recall": 0.7733, "f1": 0.7799},
+        "contradiction": {"precision": 0.8142, "recall": 0.6667, "f1": 0.7331}
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+[
+  {"alpha": 0.0, "rouge1": 0.3857, "rouge2": 0.2122, "rougeL": 0.3176, "entailment": 0.3100, "contradiction": 0.0138},
+  {"alpha": 0.3, "rouge1": 0.3845, "rouge2": 0.2094, "rougeL": 0.3165, "entailment": 0.4655, "contradiction": 0.0114},
+  {"alpha": 0.5, "rouge1": 0.3839, "rouge2": 0.2089, "rougeL": 0.3160, "entailment": 0.4660, "contradiction": 0.0113},
+  {"alpha": 0.7, "rouge1": 0.3833, "rouge2": 0.2084, "rougeL": 0.3156, "entailment": 0.4662, "contradiction": 0.0113},
+  {"alpha": 1.0, "rouge1": 0.3816, "rouge2": 0.2068, "rougeL": 0.3137, "entailment": 0.4664, "contradiction": 0.0114}
+]
