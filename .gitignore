@@ -7,3 +7,4 @@ checkpoints/*
 !checkpoints/.gitkeep
 .DS_Store
 .env
+TODO.md

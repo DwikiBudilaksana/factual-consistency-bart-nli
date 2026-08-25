@@ -13,7 +13,7 @@
       "num_candidates": 4,
       "test_samples": 10971,
       "max_source_length": 256,
-      "note": "Regenerated after TODO.md P0 #1 fix (max_source_length was silently 768 in the previous run). avg_neutral derived as 1 - avg_entailment - avg_contradiction."
+      "note": "Regenerated after fixing a max_source_length bug (was silently 768 in the previous run). avg_neutral derived as 1 - avg_entailment - avg_contradiction."
     }
   },
   "indonli_validation": {

@@ -18,12 +18,12 @@ This repository implements a pipeline that improves factual consistency in Indon
 ├── notebooks/
 │   ├── 01_training.ipynb              # Fine-tune BART, generate baseline & NLI-reranked summaries, compute ROUGE/entailment
 │   ├── 02_nli_validation.ipynb        # Validate the NLI model on IndoNLI (test_lay / test_expert), per-class precision/recall/F1
-│   ├── 03_ablation_study_alpha.ipynb  # Selects α (0.0, 0.3, 0.5, 0.7, 1.0) on the VALIDATION split (fixed per TODO.md P0 #2); also usable as a test-set sensitivity check
+│   ├── 03_ablation_study_alpha.ipynb  # Selects α (0.0, 0.3, 0.5, 0.7, 1.0) on the VALIDATION split (bug fix, see notebook's markdown note); also usable as a test-set sensitivity check
 │   ├── 04_comparison_methods.ipynb    # Compares Baseline vs. NLI Reranking vs. Semantic Similarity Reranking
 │   └── exploratory/
 │       └── 00_initial_pipeline_draft.ipynb   # Early exploratory draft (different hyperparameters; kept for transparency, NOT the final configuration)
 ├── results/
-│   ├── main_results.json              # Main baseline vs. NLI performance numbers + IndoNLI validation results (re-run after TODO.md P0 #1 fix, confirmed 2026-08-25)
+│   ├── main_results.json              # Main baseline vs. NLI performance numbers + IndoNLI validation results (re-run after a max_source_length bug fix, confirmed 2026-08-25)
 │   ├── ablation_alpha_results.json    # α sweep on the TEST split — sensitivity check only, not the selection procedure (see P0 #2)
 │   ├── alpha_selection_validation_results.json  # α sweep on the VALIDATION split — the actual selection procedure (produced once 03_ablation_study_alpha.ipynb is re-run)
 │   └── comparison_methods_results.json# Method comparison results
@@ -57,7 +57,7 @@ Place the downloaded/preprocessed files under `data/` following the paths refere
 
 ## Pipeline / How to Reproduce
 
-1. **Select α on the validation split first** — run `notebooks/03_ablation_study_alpha.ipynb` to reproduce the sweep over α ∈ {0.0, 0.3, 0.5, 0.7, 1.0} on the **validation** split (fixed per `TODO.md` P0 #2) and confirm the best-performing α. Candidates are generated once and reused across all α values (reranking only, no regeneration). Requires a fine-tuned BART checkpoint from step 2 below to already exist, so in practice run step 2 first, then come back to this step.
+1. **Select α on the validation split first** — run `notebooks/03_ablation_study_alpha.ipynb` to reproduce the sweep over α ∈ {0.0, 0.3, 0.5, 0.7, 1.0} on the **validation** split and confirm the best-performing α. Candidates are generated once and reused across all α values (reranking only, no regeneration). Requires a fine-tuned BART checkpoint from step 2 below to already exist, so in practice run step 2 first, then come back to this step.
 2. **Train BART and generate predictions** — run `notebooks/01_training.ipynb`. This fine-tunes BART on Liputan6 (3 epochs, batch size 12, max source length 256, max target length 128, learning rate 2e-5), then generates both baseline (top-1 beam) and NLI-reranked (α = 0.7 by default — update the `ALPHA` config constant first if step 1 selected a different value, 4 candidates) summaries on the test split, producing the main performance numbers (ROUGE-1/2/L, average entailment/contradiction/neutral). Also includes the P0 #1 fix (`max_source_length=256` for generation, previously silently defaulted to 768).
 3. **Validate the NLI model** — run `notebooks/02_nli_validation.ipynb` to reproduce the per-class precision/recall/F1 on IndoNLI's `test_lay` and `test_expert` splits.
 4. **Compare against an alternative re-ranking strategy** — run `notebooks/04_comparison_methods.ipynb` to reproduce the comparison between Baseline, NLI Reranking, and Semantic Similarity Reranking (cosine similarity via `paraphrase-multilingual-MiniLM-L12-v2`).
@@ -101,7 +101,7 @@ Place the downloaded/preprocessed files under `data/` following the paths refere
 
 ## Results Summary
 
-> **Updated 2026-08-25** after the TODO.md P0 #1 fix (`max_source_length=256` during generation, previously silently 768). The numbers below are confirmed from a re-run of `01_training.ipynb` and now align closely with the independently-computed α=0.7 rows in Tables VI/VIII (which always used 256 tokens) — differences are within the ~1-sample gap between the deduplicated test set (10,971) and the raw test set (10,972). **α = 0.7 is now confirmed** via the validation-split selection procedure (P0 #2, `03_ablation_study_alpha.ipynb`) — see `results/alpha_selection_validation_results.json`.
+> **Updated 2026-08-25** after fixing a `max_source_length` bug (should be 256 during generation, was previously silently defaulting to 768). The numbers below are confirmed from a re-run of `01_training.ipynb` and now align closely with the independently-computed α=0.7 rows in Tables VI/VIII (which always used 256 tokens) — differences are within the ~1-sample gap between the deduplicated test set (10,971) and the raw test set (10,972). **α = 0.7 is now confirmed** via the validation-split selection procedure (`03_ablation_study_alpha.ipynb`) — see `results/alpha_selection_validation_results.json`.
 
 | Model | ROUGE-1 | ROUGE-2 | ROUGE-L | Avg. Entailment | Avg. Contradiction |
 |---|---|---|---|---|---|
