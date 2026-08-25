@@ -1,0 +1,66 @@
+{
+  "n_paired_samples": 10971,
+  "seed": 42,
+  "bootstrap_resamples": 10000,
+  "cohens_d_convention": "paired d_z = mean(baseline - nli) / std(baseline - nli); positive d means baseline > NLI",
+  "results": [
+    {
+      "metric": "ROUGE-1",
+      "baseline_mean": 0.3856,
+      "nli_mean": 0.3834,
+      "t_statistic": 2.745,
+      "p_value": 0.00606,
+      "significant_p<0.05": true,
+      "cohens_d": 0.026,
+      "direction": "NLI < baseline",
+      "mean_diff_nli_minus_baseline": -0.0022,
+      "bootstrap_95ci_low": -0.0038,
+      "bootstrap_95ci_high": -0.0007,
+      "n_samples": 10971
+    },
+    {
+      "metric": "ROUGE-2",
+      "baseline_mean": 0.2122,
+      "nli_mean": 0.2086,
+      "t_statistic": 5.219,
+      "p_value": 1.83e-07,
+      "significant_p<0.05": true,
+      "cohens_d": 0.050,
+      "direction": "NLI < baseline",
+      "mean_diff_nli_minus_baseline": -0.0036,
+      "bootstrap_95ci_low": -0.0051,
+      "bootstrap_95ci_high": -0.0023,
+      "n_samples": 10971
+    },
+    {
+      "metric": "ROUGE-L",
+      "baseline_mean": 0.3174,
+      "nli_mean": 0.3155,
+      "t_statistic": 2.492,
+      "p_value": 0.0127,
+      "significant_p<0.05": true,
+      "cohens_d": 0.024,
+      "direction": "NLI < baseline",
+      "mean_diff_nli_minus_baseline": -0.0019,
+      "bootstrap_95ci_low": -0.0033,
+      "bootstrap_95ci_high": -0.0004,
+      "n_samples": 10971
+    },
+    {
+      "metric": "Entailment",
+      "baseline_mean": 0.3099,
+      "nli_mean": 0.4664,
+      "t_statistic": -57.551,
+      "p_value": 0.0,
+      "significant_p<0.05": true,
+      "cohens_d": -0.549,
+      "direction": "NLI > baseline",
+      "mean_diff_nli_minus_baseline": 0.1565,
+      "bootstrap_95ci_low": 0.1511,
+      "bootstrap_95ci_high": 0.1618,
+      "n_samples": 10971,
+      "note_p_value": "p < 1e-300 (below double-precision float range); scipy reported p_value=0.0"
+    }
+  ],
+  "note": "Baseline entailment mean (0.3099) recomputed in this notebook via batched NLI inference differs by 0.0001 from Table V's 0.3100 (computed unbatched during original generation), consistent with expected floating-point differences from padding/batching in the NLI forward pass, not a data discrepancy."
+}

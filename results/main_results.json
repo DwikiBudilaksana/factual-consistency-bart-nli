@@ -1,17 +1,19 @@
 {
   "main_performance_comparison": {
     "BART_baseline": {
-      "rouge1": 0.3819, "rouge2": 0.2090, "rougeL": 0.3145,
-      "avg_entailment": 0.3229, "avg_contradiction": 0.0133, "avg_neutral": 0.6638
+      "rouge1": 0.3856, "rouge2": 0.2122, "rougeL": 0.3174,
+      "avg_entailment": 0.3100, "avg_contradiction": 0.0138, "avg_neutral": 0.6762
     },
     "BART_plus_NLI_reranking": {
-      "rouge1": 0.3789, "rouge2": 0.2045, "rougeL": 0.3113,
-      "avg_entailment": 0.4940, "avg_contradiction": 0.0108, "avg_neutral": 0.4952
+      "rouge1": 0.3834, "rouge2": 0.2085, "rougeL": 0.3156,
+      "avg_entailment": 0.4664, "avg_contradiction": 0.0112, "avg_neutral": 0.5224
     },
     "config": {
       "alpha": 0.7,
       "num_candidates": 4,
-      "test_samples": 10971
+      "test_samples": 10971,
+      "max_source_length": 256,
+      "note": "Regenerated after TODO.md P0 #1 fix (max_source_length was silently 768 in the previous run). avg_neutral derived as 1 - avg_entailment - avg_contradiction."
     }
   },
   "indonli_validation": {
