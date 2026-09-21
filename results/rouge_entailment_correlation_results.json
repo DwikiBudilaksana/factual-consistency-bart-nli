@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "label": "baseline",
+    "n": 10971,
+    "pearson_r": 0.0681,
+    "pearson_p": 9.035784900058971e-13,
+    "spearman_rho": 0.0686,
+    "spearman_p": 6.365046677198996e-13
+  },
+  "nli": {
+    "label": "BART+NLI",
+    "n": 10971,
+    "pearson_r": 0.0521,
+    "pearson_p": 4.79550744664497e-08,
+    "spearman_rho": 0.0503,
+    "spearman_p": 1.384622546995878e-07
+  },
+  "pooled": {
+    "label": "pooled (baseline+NLI)",
+    "n": 21942,
+    "pearson_r": 0.0575,
+    "pearson_p": 1.50436516837145e-17,
+    "spearman_rho": 0.0569,
+    "spearman_p": 3.341245712000963e-17
+  }
+}

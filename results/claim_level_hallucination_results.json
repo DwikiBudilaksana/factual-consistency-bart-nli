@@ -1,0 +1,46 @@
+{
+  "sample_size": null,
+  "n_paired_samples": 10971,
+  "sentence_level": {
+    "baseline": {
+      "label": "baseline",
+      "n_summaries": 10971,
+      "total_claims": 18772,
+      "total_non_entailed_claims": 12786,
+      "claim_level_hallucination_rate": 0.6811208182399318,
+      "mean_per_summary_hallucination_rate": 0.700606143469146,
+      "pct_summaries_with_any_hallucinated_claim": 0.8103181113845593
+    },
+    "nli": {
+      "label": "nli",
+      "n_summaries": 10971,
+      "total_claims": 20405,
+      "total_non_entailed_claims": 12129,
+      "claim_level_hallucination_rate": 0.5944131340357756,
+      "mean_per_summary_hallucination_rate": 0.6052486859295719,
+      "pct_summaries_with_any_hallucinated_claim": 0.757724911129341
+    }
+  },
+  "numeric_level": {
+    "baseline": {
+      "label": "baseline",
+      "n_summaries": 10971,
+      "summaries_with_numeric_claims": 3544,
+      "pct_summaries_with_numeric_claims": 0.32303345182754534,
+      "total_numeric_claims": 5298,
+      "total_unsupported_numeric_claims": 0,
+      "numeric_claim_hallucination_rate": 0.0,
+      "mean_per_summary_numeric_hallucination_rate": 0.0
+    },
+    "nli": {
+      "label": "nli",
+      "n_summaries": 10971,
+      "summaries_with_numeric_claims": 3489,
+      "pct_summaries_with_numeric_claims": 0.31802023516543615,
+      "total_numeric_claims": 5146,
+      "total_unsupported_numeric_claims": 1,
+      "numeric_claim_hallucination_rate": 0.000194325689856199,
+      "mean_per_summary_numeric_hallucination_rate": 0.00028661507595299513
+    }
+  }
+}

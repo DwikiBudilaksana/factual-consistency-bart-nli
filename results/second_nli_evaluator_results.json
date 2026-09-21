@@ -1,0 +1,34 @@
+{
+  "model1_name": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+  "model2_name": "joeddav/xlm-roberta-large-xnli",
+  "n_paired_samples": 10971,
+  "model1": {
+    "baseline_mean_entailment": 0.3099,
+    "nli_mean_entailment": 0.4653,
+    "relative_gain_pct": 50.1
+  },
+  "model2": {
+    "baseline_mean_entailment": 0.4146,
+    "nli_mean_entailment": 0.4506,
+    "relative_gain_pct": 8.7
+  },
+  "model2_paired_ttest": {
+    "t_statistic": -16.599,
+    "p_value": 3.9595883275007746e-61,
+    "cohens_d": -0.158
+  },
+  "cross_model_agreement": {
+    "baseline": {
+      "pearson_r": 0.3926,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.4766,
+      "spearman_p": 0.0
+    },
+    "nli": {
+      "pearson_r": 0.4548,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.5061,
+      "spearman_p": 0.0
+    }
+  }
+}
