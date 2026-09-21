@@ -20,13 +20,23 @@ This repository implements a pipeline that improves factual consistency in Indon
 │   ├── 02_nli_validation.ipynb        # Validate the NLI model on IndoNLI (test_lay / test_expert), per-class precision/recall/F1
 │   ├── 03_ablation_study_alpha.ipynb  # Selects α (0.0, 0.3, 0.5, 0.7, 1.0) on the VALIDATION split (bug fix, see notebook's markdown note); also usable as a test-set sensitivity check
 │   ├── 04_comparison_methods.ipynb    # Compares Baseline vs. NLI Reranking vs. Semantic Similarity Reranking
+│   ├── 05_significance_test.ipynb     # Paired t-test, Cohen's d, and bootstrap CI for baseline vs. NLI reranking on all four metrics
+│   ├── 06_claim_level_hallucination.ipynb     # Claim-level (sentence- and number-level) hallucination rate, complementing the document-level entailment score
+│   ├── 07_rouge_entailment_correlation.ipynb  # Pearson/Spearman correlation between ROUGE-1 and entailment score, evidencing they capture different quality dimensions
+│   ├── 08_candidate_pool_size_ablation.ipynb  # Ablation over candidate pool size k ∈ {2, 3, 5, 6} at fixed α = 0.7 on the validation split (k=4 reuses 03's results)
+│   ├── 09_second_nli_evaluator.ipynb  # Cross-validates the main results with a second, independent NLI model (XLM-RoBERTa-large-XNLI) to test the selection/evaluation circularity concern
 │   └── exploratory/
 │       └── 00_initial_pipeline_draft.ipynb   # Early exploratory draft (different hyperparameters; kept for transparency, NOT the final configuration)
 ├── results/
 │   ├── main_results.json              # Main baseline vs. NLI performance numbers + IndoNLI validation results (re-run after a max_source_length bug fix, confirmed 2026-08-25)
 │   ├── ablation_alpha_results.json    # α sweep on the TEST split — sensitivity check only, not the selection procedure (see P0 #2)
 │   ├── alpha_selection_validation_results.json  # α sweep on the VALIDATION split — the actual selection procedure (produced once 03_ablation_study_alpha.ipynb is re-run)
-│   └── comparison_methods_results.json# Method comparison results
+│   ├── comparison_methods_results.json# Method comparison results
+│   ├── significance_test_results.json # Paired t-test / Cohen's d / bootstrap CI results
+│   ├── claim_level_hallucination_results.json    # Sentence- and number-level claim hallucination rates
+│   ├── rouge_entailment_correlation_results.json # Pearson/Spearman correlation between ROUGE-1 and entailment
+│   ├── candidate_pool_size_ablation_results.json # Candidate pool size k ∈ {2,3,5,6} ablation results
+│   └── second_nli_evaluator_results.json         # Cross-validation results using the independent XLM-RoBERTa-large-XNLI evaluator
 ├── data/            # (not included — see "Data" section below)
 ├── checkpoints/     # (not included — fine-tuned model checkpoint goes here)
 └── requirements.txt
@@ -83,6 +93,15 @@ Place the downloaded/preprocessed files under `data/` following the paths refere
 | *(not a numbered table in the condensed paper)* Computational cost | timed manually from Kaggle session logs across notebooks | reported in paper text only |
 | *(cut from the condensed paper's 3-example set)* Qualitative Example — electricity tariff protest (ID 14557) | `01_training.ipynb` (prediction inspection cell) | printed in-notebook |
 
+> **Thesis-only tables (not in the condensed conference paper):** the thesis defense (BINUS Graduate Program) received additional examiner comments after the paper submission, addressed with four further notebooks. These are not mapped to paper table numbers above since they postdate the paper's table numbering, but they back specific thesis tables/subbab as follows.
+
+| Thesis table / subbab | Produced by | Output file |
+|---|---|---|
+| Tabel 4.6 (Claim-Level Hallucination Rate) | `06_claim_level_hallucination.ipynb` | `results/claim_level_hallucination_results.json` |
+| Subbab 4.4.3 (ROUGE–entailment correlation, Pearson/Spearman) | `07_rouge_entailment_correlation.ipynb` | `results/rouge_entailment_correlation_results.json` |
+| Tabel 4.14 (Ablasi Ukuran Pool Kandidat, k ∈ {2,3,5,6}) | `08_candidate_pool_size_ablation.ipynb` | `results/candidate_pool_size_ablation_results.json` |
+| Tabel 4.15 / Subbab 4.4.8 (Validasi Silang dengan Model NLI Independen — circularity check) | `09_second_nli_evaluator.ipynb` | `results/second_nli_evaluator_results.json` |
+
 ## Key Configuration
 
 | Parameter | Value |
@@ -109,6 +128,8 @@ Place the downloaded/preprocessed files under `data/` following the paths refere
 | BART + NLI Reranking | 0.3834 | 0.2085 | 0.3156 | **0.4664** | **0.0112** |
 
 See `results/` for the full set of numbers, including the ablation study and method comparison.
+
+**Circularity check:** the entailment gain above (0.3100 → 0.4664, +50.5%) is measured by the same NLI model used to select candidates. Cross-validating with an independent evaluator (XLM-RoBERTa-large-XNLI, not involved in candidate selection) in `09_second_nli_evaluator.ipynb` finds the gain remains statistically significant but shrinks to **+8.7%** (negligible effect size, Cohen's d = -0.158, vs. -0.549 under the selection model) — see `results/second_nli_evaluator_results.json`. Report the larger figure with this caveat attached; treat the independent-evaluator number as the more conservative estimate of the true effect.
 
 ## License
 
